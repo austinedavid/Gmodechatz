@@ -2,6 +2,7 @@
 import React from 'react'
 import succesfulGif from '../images/successful.gif'
 import styled from 'styled-components'
+import {useNavigate} from 'react-router-dom'
 
 // our style for the jsx
 const Container = styled.div`
@@ -28,11 +29,12 @@ const Container = styled.div`
 `
 // our jsx
 const Successful = () => {
+    const navigate = useNavigate()
   return (
     <Container>
         <img src={succesfulGif}/>
         <h4>REGISTRATION SUCCESSFULL</h4>
-        <button>LOGIN NOW</button>
+        <button onClick={()=> navigate('/login')}>LOGIN NOW</button>
     </Container>
   )
 }

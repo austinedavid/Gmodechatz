@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import {TextField} from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // styling below here
 const Container  = styled.div`
@@ -69,12 +71,29 @@ const EmailInput = ({setpage, page, setinfos, infos}) => {
         <p>ready to chat, enter your email below to proceed</p>
         <div className='input-div'>
           <input placeholder='enter email' type='email' value={infos.email} onChange={(e)=> setinfos({...infos, email: e.target.value})}/>
-          <div className='getstarted' onClick={()=> setpage(page+1)}>
+          <div className='getstarted' onClick={()=>{
+            if(infos.email === " "){
+              return toast('enter valid email')
+            }
+            setpage(page+1)
+          } }>
             <p>Get Started</p>
             <ArrowForwardIosIcon/>
           </div>
         </div>
       </div>
+      <ToastContainer
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
     </Container>
   )
 }

@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // below is our styling for the jsx
 const Container = styled.div`
@@ -112,9 +114,26 @@ const Password = ({setpage, page, setinfos, infos}) => {
           <p>I want to receive notifications</p>
         </div>
       </div>
-      <div className='next-btn' onClick={()=>setpage(page +1)}>
+      <div className='next-btn' onClick={()=>{
+        if(infos.password === " "){
+          return toast("password required")
+        }
+        setpage(page +1)
+      }}>
         <p>NEXT</p>
       </div>
+      <ToastContainer
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
     </Container>
   )
 }

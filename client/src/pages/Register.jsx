@@ -5,6 +5,9 @@ import EmailInput from '../components/EmailInput'
 import Password from '../components/Password'
 import Review from '../components/Review'
 import Successful from '../components/Successful'
+import {useNavigate} from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // below is our styling 
 const Container = styled.div`
@@ -70,6 +73,7 @@ const Container = styled.div`
 
 const Register = () => {
     const [page, setpage] = useState(0)
+    const navigate = useNavigate()
     const [infos, setinfos] = useState({
         email: " ",
         password: " ",
@@ -85,7 +89,7 @@ const Register = () => {
         }else if (page === 1){
             return <Password  page={page} setpage={setpage} setinfos={setinfos} infos={infos}/>
         }else if(page === 2){
-            return <Review/>
+            return <Review page={page} setpage={setpage} setinfos={setinfos} infos={infos}/>
         }else{
             return <Successful/>
         }
@@ -94,6 +98,9 @@ const Register = () => {
     // here we submit our form
     const handleSubmit = (e)=>{
         e.preventDefault()
+        if(infos.username === " "){
+            return toast("username required")
+        }
         setpage(page +1)
     }
   return (
@@ -103,13 +110,25 @@ const Register = () => {
                 <h4 className='logo'>GmodeChatz</h4>
             </div>
             <div className='signin-div'>
-                <button className='signin-btn'>SIGNIN</button>
+                <button onClick={()=> navigate('/login')} className='signin-btn'>SIGNIN</button>
             </div>
         </div>
         <div className='form-wrapper'>
             {returnedPage()}
             {page === 2 && (<div className='end-submit' onClick={handleSubmit}>SUBMIT</div>)}
         </div>
+        <ToastContainer
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
    </Container>
   )
 }
