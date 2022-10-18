@@ -4,6 +4,8 @@ import Register from './pages/Register';
 import styled from 'styled-components';
 import Login from './pages/Login';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import Chatpage from './pages/Chatpage';
+import Protected from './components/Protected';
 
 // our stylying appear here
 const Container = styled.div`
@@ -18,6 +20,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/chatpage' element={<Protected><Chatpage/></Protected>}/>
       </Routes>
     </Router>
    </Container>

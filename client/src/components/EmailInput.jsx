@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useRef} from 'react'
 import styled from 'styled-components'
 import {TextField} from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -60,6 +60,7 @@ const Container  = styled.div`
 `
 
 const EmailInput = ({setpage, page, setinfos, infos}) => {
+  const emailRef = useRef()
   return (
     <Container>
       <div className='bold-div'>
@@ -70,9 +71,10 @@ const EmailInput = ({setpage, page, setinfos, infos}) => {
       <div className='input-container'>
         <p>ready to chat, enter your email below to proceed</p>
         <div className='input-div'>
-          <input placeholder='enter email' type='email' value={infos.email} onChange={(e)=> setinfos({...infos, email: e.target.value})}/>
+          <input ref={emailRef} placeholder='enter email' type='email' value={infos.email} onChange={(e)=> setinfos({...infos, email: e.target.value})}/>
           <div className='getstarted' onClick={()=>{
             if(infos.email === " "){
+              emailRef.current.focus()
               return toast('enter valid email')
             }
             setpage(page+1)

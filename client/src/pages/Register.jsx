@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import bgImage from '../images/chat-bg2.webp'
 import EmailInput from '../components/EmailInput'
@@ -74,6 +74,7 @@ const Container = styled.div`
 const Register = () => {
     const [page, setpage] = useState(0)
     const navigate = useNavigate()
+    const userRef = useRef()
     const [infos, setinfos] = useState({
         email: " ",
         password: " ",
@@ -89,7 +90,7 @@ const Register = () => {
         }else if (page === 1){
             return <Password  page={page} setpage={setpage} setinfos={setinfos} infos={infos}/>
         }else if(page === 2){
-            return <Review page={page} setpage={setpage} setinfos={setinfos} infos={infos}/>
+            return <Review userRef={userRef} page={page} setpage={setpage} setinfos={setinfos} infos={infos}/>
         }else{
             return <Successful/>
         }
@@ -99,6 +100,7 @@ const Register = () => {
     const handleSubmit = (e)=>{
         e.preventDefault()
         if(infos.username === " "){
+            userRef.current.focus()
             return toast("username required")
         }
         setpage(page +1)

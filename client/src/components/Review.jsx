@@ -39,7 +39,7 @@ const Container = styled.div`
 `
 
 // our jsx.
-const Review = ({setpage, page, setinfos, infos}) => {
+const Review = ({setpage, userRef, page, setinfos, infos}) => {
   return (
     <Container>
       <div className='top-div'>
@@ -47,10 +47,10 @@ const Review = ({setpage, page, setinfos, infos}) => {
         <h4>this is the last part of the form</h4>
       </div>
       <div className='input-div'>
-        <input placeholder='enter username' value={infos.username} onChange={(e)=>setinfos({...infos, username: e.target.value})}/>
+        <input ref={userRef} placeholder='enter username' value={infos.username} onChange={(e)=>setinfos({...infos, username: e.target.value})}/>
         <div className='profile-pix' >
           <label>upload profile picture<span>*</span></label>
-          <input type='file' className='file-input'/>
+          <input  type='file' className='file-input'/>
         </div>
         
       </div>
