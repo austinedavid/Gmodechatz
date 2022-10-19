@@ -73,7 +73,7 @@ const EmailInput = ({setpage, page, setinfos, infos}) => {
         <div className='input-div'>
           <input ref={emailRef} placeholder='enter email' type='email' value={infos.email} onChange={(e)=> setinfos({...infos, email: e.target.value})}/>
           <div className='getstarted' onClick={()=>{
-            if(infos.email === " "){
+            if(infos.email.length <= 2){
               emailRef.current.focus()
               return toast('enter valid email')
             }

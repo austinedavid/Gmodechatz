@@ -99,7 +99,7 @@ const Register = () => {
     // here we submit our form
     const handleSubmit = (e)=>{
         e.preventDefault()
-        if(infos.username === " "){
+        if(infos.username.length <= 2){
             userRef.current.focus()
             return toast("username required")
         }

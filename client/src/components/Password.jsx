@@ -106,7 +106,7 @@ const Password = ({setpage, page, setinfos, infos}) => {
       <div  className='third-div'>
         <input type="text" className='email' defaultValue={infos.email}/>
         <div className='password-div'>
-          <input ref={passRef} type={visible? "text": "password"} className='password' value={infos.Password} onChange={(e)=>setinfos({...infos, password: e.target.value})}/>
+          <input placeholder='password' ref={passRef} type={visible? "text": "password"} className='password' value={infos.Password} onChange={(e)=>setinfos({...infos, password: e.target.value})}/>
             {visible? <RemoveRedEyeIcon onClick={()=>setvisible(false)} style={{color: 'black', cursor: 'pointer'}} /> : <VisibilityOffIcon style={{color: 'black', cursor: 'pointer'}} onClick={()=>setvisible(true)}/> }
         </div>
         
@@ -116,7 +116,7 @@ const Password = ({setpage, page, setinfos, infos}) => {
         </div>
       </div>
       <div className='next-btn' onClick={()=>{
-        if(infos.password === " "){
+        if(infos.password.length <= 2){
           passRef.current.focus()
           return toast("password required")
         }
