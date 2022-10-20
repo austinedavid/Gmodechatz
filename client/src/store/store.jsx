@@ -1,5 +1,6 @@
 import { configureStore, combineReducers} from '@reduxjs/toolkit'
 import userReducer from '../slice/userslice'
+import friendReducer from '../slice/selected'
 
 
 
@@ -23,7 +24,7 @@ import {
    storage,
  }
 
- const rootReducer = combineReducers({currentUser: userReducer})
+ const rootReducer = combineReducers({currentUser: userReducer, friend: friendReducer})
   
   
  const persistedReducer = persistReducer(persistConfig, rootReducer)

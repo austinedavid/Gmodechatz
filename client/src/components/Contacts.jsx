@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
 import {axiosInstance} from '../axiosInstance'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {Avatar} from '@mui/material'
+import {updateFriends} from '../slice/selected'
 
 // below is styles for our jsx
 const Container = styled.div`
@@ -100,6 +101,7 @@ const Contacts = () => {
     const{currentUser} = useSelector((state)=> state.currentUser)
     const[myContacts, setmyContacts] = useState([])
     const[searched, setsearched] = useState("")
+    const dispatch = useDispatch()
     
     // getting our contacts from the database
     useEffect(()=>{
@@ -121,17 +123,23 @@ const Contacts = () => {
     const returnSearched = (items)=>{
        return items.filter((item)=> item.username.toLowerCase().includes(searched)) || items.filter((item)=> item.email.includes(searched))
     }
+
+    // here we handle push friends
+    const handlePushFriends = (contacts)=>{
+        dispatch(updateFriends(contacts))
+        setsearched('')
+    }
   return (
     <Container>
         <div className='chat-div'>
-            <input placeholder='search for friends' type='text' onChange={(e)=> setsearched(e.target.value)}/>
+            <input value={searched} placeholder='search for friends' type='text' onChange={(e)=> setsearched(e.target.value)}/>
             <div className='search-icon-div'><SearchIcon style={{color: "white", cursor: "pointer"}}/></div>
         </div>
         <h4>My contacts</h4>
         <div className='contact-div'>
             {
                 returnSearched(myContacts).map((contacts)=>(
-                    <div key={contacts._id} className="contact-wrapper">
+                    <div key={contacts._id} className="contact-wrapper" onClick={()=> handlePushFriends(contacts)}>
                         <div className='profile-pix'>
                             <Avatar/>
                         </div>

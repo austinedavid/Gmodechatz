@@ -42,6 +42,23 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         cursor: pointer;
+
+        .down-arror{
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          
+          &:hover{
+            .hidden-div{
+              display: block;
+            }
+          }
+          .hidden-div{
+            display: none;
+            position: absolute;
+            top: 5rem;
+          }
+        }
       }
     }
   }
@@ -66,7 +83,17 @@ const Chatpage = () => {
       <div className='nav-bar'>
         <div className='logo-div'><img src={logo}/><h4>Chatz</h4></div>
         <div className='menu-div'>
-          <div className='avatar-div'><Avatar/><ArrowDropDownIcon/></div>
+          <div className='avatar-div'>
+            <Avatar/>
+            <div className='down-arror'>
+              <ArrowDropDownIcon/>
+              <div className='hidden-div'>
+                <p>user</p>
+                <p>logout</p>
+              </div>
+            </div>
+            
+          </div>
         </div>
       </div>
       <div className='chat-view'>
