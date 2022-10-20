@@ -23,11 +23,11 @@ const loginUser = async(req, res)=>{
     try {
         const user = await User.findOne({email: req.body.email})
         if(!user){
-           return res.status(404).send("you are not registered")
+           return res.status(500).send("you are not registered")
         }
         const verifiedPassword = await bcrypt.compare(req.body.password, user.password)
         if(!verifiedPassword){
-           return res.status(404).send("password do not match")
+           return res.status(500).send("password do not match")
         }
 
         // we create jwt for a verified login user
@@ -48,11 +48,15 @@ const checkingUser = async(req, res)=>{
             const userbyemail = await User.findOne({email})
             if(userbyemail){
                  return res.status(200).send("email already exist")
+            }else{
+                return res.status(201).send("no user with the email")
             }
         }else{
             const userbyusername = await User.findOne({username})
             if(userbyusername){
                 return res.status(200).send("username already exist")
+            }else{
+                return res.status(201).send("no user with the username")
             }
         }
        

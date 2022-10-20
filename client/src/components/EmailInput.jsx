@@ -4,6 +4,7 @@ import {TextField} from '@mui/material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {axiosInstance} from '../axiosInstance'
 
 // styling below here
 const Container  = styled.div`
@@ -61,6 +62,23 @@ const Container  = styled.div`
 
 const EmailInput = ({setpage, page, setinfos, infos}) => {
   const emailRef = useRef()
+
+  // handling email verification to check is a user with the same email already exist
+  const handleEmailCheck = async()=>{
+    
+    if(infos.email.length <= 2){
+      emailRef.current.focus()
+      return toast('enter valid email')
+    }
+    
+      const emailCheck = await axiosInstance.post('checkinguser', {email: infos.email})
+       if(emailCheck.status === 200){
+        return toast(emailCheck.data)
+       }else{
+        setpage(page +1)
+       }
+
+  }
   return (
     <Container>
       <div className='bold-div'>
@@ -72,13 +90,7 @@ const EmailInput = ({setpage, page, setinfos, infos}) => {
         <p>ready to chat, enter your email below to proceed</p>
         <div className='input-div'>
           <input ref={emailRef} placeholder='enter email' type='email' value={infos.email} onChange={(e)=> setinfos({...infos, email: e.target.value})}/>
-          <div className='getstarted' onClick={()=>{
-            if(infos.email.length <= 2){
-              emailRef.current.focus()
-              return toast('enter valid email')
-            }
-            setpage(page+1)
-          } }>
+          <div className='getstarted' onClick={handleEmailCheck}>
             <p>Get Started</p>
             <ArrowForwardIosIcon/>
           </div>

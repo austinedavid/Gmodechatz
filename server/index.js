@@ -3,6 +3,7 @@ const app = express()
 const dotenv = require('dotenv').config()
 const mongoose = require('mongoose')
 const authRoute = require('./routes/auth')
+const userRoute = require('./routes/user')
 const cors = require('cors')
 
 // we connect our mongoose to the data base
@@ -24,10 +25,8 @@ app.use(cors())
 
 // creating our differnt routes
 app.use('/app', authRoute)
-// our routes
-app.get('/', (req, res)=>{
-    res.send('you are there already')
-})
+app.use('/app', userRoute)
+
 // creating a listening 
 app.listen(PORT, ()=>{
     console.log(`app is running on port: ${PORT}`)

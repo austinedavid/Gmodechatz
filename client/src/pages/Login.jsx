@@ -1,7 +1,14 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styled from 'styled-components'
 import bgchat from '../images/chat-bg3.webp'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
+import {axiosInstance} from '../axiosInstance'
+import {signedUser, setloading, checkerror} from '../slice/userslice'
+import {useDispatch, useSelector} from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {CircularProgress} from '@mui/material'
+
 
 // below is our styling for jsx
 const Container = styled.div`
@@ -120,6 +127,36 @@ const Container = styled.div`
 // below is our jsx
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const{currentUser, loading} = useSelector((state)=> state.currentUser)
+  
+  const[user, setuser] = useState({
+    email: "",
+    password: ""
+  })
+
+  // to handle login of user to our chat
+  const handleLogin = async()=>{
+    if(!user.email){
+      return toast("enter your email address")
+    }
+    if(!user.password){
+      return toast("password required")
+    }
+    try {
+      dispatch(setloading())
+      const loggin = await axiosInstance.post('login', user).then((res)=>{
+        dispatch(signedUser(res.data))
+       navigate('/chatpage')
+      })
+    } catch (error) {
+      dispatch(checkerror())
+      return toast(error.response.data)
+      
+    }
+  }
+
   return (
    <Container>
       <div className='navbar'>
@@ -129,11 +166,11 @@ const Login = () => {
         <div className='form-wrapper'>
           <h4>Sign in</h4>
           <div className='inputgroup'>
-            <input type='email' placeholder='email'/>
-            <input type='password' placeholder='password'/>
+            <input onChange={(e)=>setuser({...user, email: e.target.value})} type='email' placeholder='email'/>
+            <input onChange={(e)=>setuser({...user, password: e.target.value})} type='password' placeholder='password'/>
           </div>
-          <div className='login-submit'>
-            <p>sign in</p>
+          <div className='login-submit' onClick={handleLogin}>
+            {loading? <CircularProgress color="inherit"  />:<p>sign in</p>}
           </div>
           <div className='added-div'>
             <div className='checkbot-div'>
@@ -149,6 +186,18 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
    </Container>
   )
 }

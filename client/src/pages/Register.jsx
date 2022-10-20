@@ -8,6 +8,7 @@ import Successful from '../components/Successful'
 import {useNavigate} from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {axiosInstance} from '../axiosInstance'
 
 // below is our styling 
 const Container = styled.div`
@@ -76,13 +77,13 @@ const Register = () => {
     const navigate = useNavigate()
     const userRef = useRef()
     const [infos, setinfos] = useState({
-        email: " ",
-        password: " ",
-        username: " ",
-        profilepix: " "
+        email: "",
+        password: "",
+        username: "",
+        profilepix: ""
     })
 
-    console.log(infos)
+    
 
     const returnedPage = ()=>{
         if(page === 0){
@@ -97,13 +98,26 @@ const Register = () => {
     }
 
     // here we submit our form
-    const handleSubmit = (e)=>{
+    const handleSubmit = async(e)=>{
         e.preventDefault()
         if(infos.username.length <= 2){
             userRef.current.focus()
             return toast("username required")
         }
-        setpage(page +1)
+        try {
+            const checkUsername = await axiosInstance.post('checkinguser', {username: infos.username}).then((res)=>{
+                if(res.status === 200){
+                    return toast(res.data)
+                }else{
+                    axiosInstance.post('register', infos).then((res)=>{
+                       setpage(page +1)
+                    })
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+       
     }
   return (
    <Container>
