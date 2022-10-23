@@ -10,13 +10,22 @@ const Container = styled.div`
   width: 400px;
   color: white;
   
- 
+ @media(max-width: 430px){
+  width: 300px;
+ }
+ @media(max-width: 290px){
+  width: 250px;
+ }
   
 
   .first-div{
     font-size: 30px;
     color: white;
     margin-bottom: 1rem;
+
+    @media(max-width: 430px){
+    font-size: 23px;
+    }
   }
   .middle-div{
     color: white;

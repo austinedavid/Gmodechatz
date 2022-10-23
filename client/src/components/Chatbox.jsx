@@ -215,7 +215,7 @@ useEffect(()=>{
           <KeyboardBackspaceIcon style={{color: "white"}} onClick={()=> setshift(false)}/>
           </div>
           <div className='inner-nav'>
-        <div className='avatar'><Avatar/></div>
+        <div className='avatar'><Avatar src={friend.profileUrl}/></div>
         <div className='chatter-details'>
           <h5>{friend.username}</h5>
           <p>{friend.email}</p>

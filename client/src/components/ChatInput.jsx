@@ -19,9 +19,10 @@ const Container = styled.div`
     align-items: center;
     position: relative;
 
-    @media (max-width: 430px){
+    @media (max-width: 707px){
         width: 100%;
     }
+    
     .emoji-div{
         color: goldenrod;
     }

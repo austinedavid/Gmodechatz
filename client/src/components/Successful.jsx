@@ -9,6 +9,12 @@ const Container = styled.div`
     width: 400px;
     color: white;
     text-align: center;
+    @media(max-width: 430px){
+        width: 300px;
+    }
+    @media(max-width: 290px){
+        width: 250px;
+    }
     img{
         width: 100%;
     }

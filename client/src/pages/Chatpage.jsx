@@ -32,6 +32,7 @@ const Container = styled.div`
       position: absolute;
       background-color: white;
       color: black;
+      min-width: 120px;
       padding: 10px;
       top: 70px;
       right: 0px;
@@ -175,7 +176,7 @@ const Chatpage = () => {
         </div>
         <div className='setting-div'>
           <div className='profile-pix'>
-            <Avatar/>
+            <Avatar src={currentUser.profileUrl}/>
             <p>{currentUser.username}</p>
           </div>
           <div className='setting'><p>settings</p></div>

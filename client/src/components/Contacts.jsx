@@ -152,7 +152,7 @@ const Contacts = ({shift, setshift}) => {
                 returnSearched(myContacts).map((contacts)=>(
                     <div key={contacts._id} className="contact-wrapper" onClick={()=> handlePushFriends(contacts)}>
                         <div className='profile-pix'>
-                            <Avatar/>
+                            <Avatar src={contacts.profileUrl}/>
                         </div>
                         <div className='profile-name'>
                             <h5>{contacts.username}</h5>

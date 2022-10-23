@@ -32,6 +32,10 @@ const Container = styled.div`
             font-weight: bold;
             color: #c90909;
             cursor: default;
+
+            @media(max-width: 400px){
+                font-size: 20px;
+            }
         }
 
         .signin-btn{
@@ -68,6 +72,13 @@ const Container = styled.div`
             border-radius: 5px;
             margin-top: 10px;
             cursor: pointer;
+
+            @media(max-width: 430px){
+            width: 300px;
+            }
+            @media(max-width: 290px){
+            width: 250px;
+            }
         }
     }
 `
@@ -80,10 +91,10 @@ const Register = () => {
         email: "",
         password: "",
         username: "",
-        profilepix: ""
+        profileUrl: ""
     })
 
-    
+    console.log(infos)
 
     const returnedPage = ()=>{
         if(page === 0){

@@ -12,16 +12,46 @@ const Container  = styled.div`
   text-align: center;
   color: white;
 
+  @media(max-width: 700px){
+    width: 500px;
+  }
+  @media(max-width: 540px){
+    width: 400px;
+  }
+  @media(max-width: 412px){
+    width: 300px!important;
+  }
+  @media(max-width: 285px){
+    width: 250px;
+  }
+
   .bold-div{
     margin-bottom: 2rem;
     h4{
       font-size: 30px;
       font-weight: bold;
+
+      @media(max-width: 700px){
+        font-size: 25px;
+      }
+      @media(max-width: 540px){
+        font-size: 20px;
+      }
+      @media(max-width: 285px){
+        font-size: 15px;
+      }
     }
   }
   p{
     font-size: 20px;
     font-weight: bold;
+
+    @media(max-width: 540px){
+        font-size: 16px;
+    }
+    @media(max-width: 285px){
+        font-size: 12px;
+      }
   }
   .input-container{
     margin-top: 10px;
@@ -33,6 +63,13 @@ const Container  = styled.div`
       justify-content: space-between;
       align-items: center;
       margin-top: 10px;
+      @media(max-width: 412px){
+      width: 300px!important;
+      display: grid;
+      grid-template-columns: 1fr;
+      }
+      
+      
 
       input{
         flex: 8;
@@ -55,6 +92,10 @@ const Container  = styled.div`
         align-items: center;
         justify-content: center;
         cursor: pointer;
+
+        @media(max-width: 412px){
+          height: 3.4rem;
+        }
       }
     }
   }
