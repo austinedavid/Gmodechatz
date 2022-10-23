@@ -18,9 +18,9 @@ function App() {
    <Container>
     <Router>
       <Routes>
-        <Route path='/' element={<Register/>}/>
+        <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/chatpage' element={<Protected><Chatpage/></Protected>}/>
+        <Route path='/' element={<Protected><Chatpage/></Protected>}/>
       </Routes>
     </Router>
    </Container>

@@ -5,7 +5,18 @@ const mongoose = require('mongoose')
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
 const messageRoute = require('./routes/message')
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const httpServer = createServer(app);
 const cors = require('cors')
+const io = new Server(httpServer, {
+    cors:{
+        origin: "http://localhost:3000",
+        credential: true
+    }
+})
+
+
 
 // we connect our mongoose to the data base
 const mongoConnect = async()=>{
@@ -30,7 +41,31 @@ app.use('/app', userRoute)
 app.use('/app', messageRoute)
 
 // creating a listening 
-app.listen(PORT, ()=>{
+httpServer.listen(PORT, ()=>{
     console.log(`app is running on port: ${PORT}`)
     mongoConnect()
+})
+
+// below here, we run all the neccesary functions for our socket.io
+
+// creating a global variable to contain our online users
+global.onlineUsers = new Map()
+console.log(onlineUsers)
+// creating our connecting to listen and also emit events
+io.on("connection", (socket)=>{
+   
+    global.chatSocket = socket;
+    // here, we push any user that connect from the client to the global onlineuser variable
+    socket.on("add-user", (userId)=>{
+        console.log(socket.id)
+        onlineUsers.set(userId, socket.id)
+    })
+
+    // here we will then listen to the individual message sent, and also check if the receiver is online
+    socket.on("send-msg", (data)=>{
+        const sendUserSocket = onlineUsers.get(data.to)
+        if(sendUserSocket){
+            socket.to(sendUserSocket).emit("msg-receive", data.message)
+        }
+    })
 })

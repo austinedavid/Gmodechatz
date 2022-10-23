@@ -31,6 +31,10 @@ const Container = styled.div`
       font-weight: bold;
       color: #c90909;
       cursor: default;
+
+      @media(max-width: 400px){
+        font-size: 20px;
+      }
     }
   }
 
@@ -49,6 +53,18 @@ const Container = styled.div`
       background-color: rgba(0,0,0,0.8);
       border-radius: 10px;
       padding: 2rem 3rem;
+
+      @media(max-width: 600px){
+        width: 400px;
+      }
+      @media(max-width: 440px){
+        width: 300px;
+        padding: 2rem 0.5rem;
+      }
+      @media(max-width: 320px){
+        width: 250px;
+        padding: 2rem 0.5rem;
+      }
 
       h4{
         color: white;
@@ -148,7 +164,7 @@ const Login = () => {
       dispatch(setloading())
       const loggin = await axiosInstance.post('login', user).then((res)=>{
         dispatch(signedUser(res.data))
-       navigate('/chatpage')
+       navigate('/')
       })
     } catch (error) {
       dispatch(checkerror())
@@ -182,7 +198,7 @@ const Login = () => {
             </div>
           </div>
           <div className='last-div'>
-            <p>new to GmodeChatz? <Link to='/' style={{textDecoration: "none", color: "white"}}>sign up now</Link></p>
+            <p>new to GmodeChatz? <Link to='/register' style={{textDecoration: "none", color: "white"}}>sign up now</Link></p>
           </div>
         </div>
       </div>

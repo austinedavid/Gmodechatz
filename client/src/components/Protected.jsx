@@ -7,7 +7,7 @@ const Protected = ({children}) => {
   console.log(currentUser)
     const loggedin = false
   if(!currentUser){
-    return <Navigate to='/'/>
+    return <Navigate to='/login'/>
   }else{
     return children
   }

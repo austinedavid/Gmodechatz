@@ -13,6 +13,15 @@ const Container = styled.div`
     position: relative;
    border: 1px solid #1f2021;
    overflow-y: scroll;
+
+   @media (max-width:450px){
+        position: absolute;
+        
+        z-index: 999;
+        background-color: black;
+        transition: all 0.5s ease;
+        transform: translateX(${(prop)=> prop.shift? "-100%": "0%"})
+      }
    
 
    .chat-div{
@@ -97,11 +106,12 @@ const Container = styled.div`
    }
 `
 // below is our jsx
-const Contacts = () => {
+const Contacts = ({shift, setshift}) => {
     const{currentUser} = useSelector((state)=> state.currentUser)
     const[myContacts, setmyContacts] = useState([])
     const[searched, setsearched] = useState("")
     const dispatch = useDispatch()
+    
     
     // getting our contacts from the database
     useEffect(()=>{
@@ -128,9 +138,10 @@ const Contacts = () => {
     const handlePushFriends = (contacts)=>{
         dispatch(updateFriends(contacts))
         setsearched('')
+        setshift(true)
     }
   return (
-    <Container>
+    <Container shift={shift}>
         <div className='chat-div'>
             <input value={searched} placeholder='search for friends' type='text' onChange={(e)=> setsearched(e.target.value)}/>
             <div className='search-icon-div'><SearchIcon style={{color: "white", cursor: "pointer"}}/></div>

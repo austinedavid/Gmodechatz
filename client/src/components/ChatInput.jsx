@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import SendIcon from '@mui/icons-material/Send';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
 import EmojiPicker from 'emoji-picker-react';
+import {axiosInstance} from '../axiosInstance'
+import {useDispatch, useSelector} from 'react-redux'
 
 // below is our style for the jsx
 const Container = styled.div`
@@ -17,6 +19,9 @@ const Container = styled.div`
     align-items: center;
     position: relative;
 
+    @media (max-width: 430px){
+        width: 100%;
+    }
     .emoji-div{
         color: goldenrod;
     }
@@ -44,10 +49,12 @@ const Container = styled.div`
     }
 `
 
-const ChatInput = () => {
+const ChatInput = ({sendmsg, setsendmsg, socket, allmsg, setallmsg}) => {
     const[showemoji, setshowemoji] = useState(false)
     const[msg, setmsg] = useState("")
     const inputRef = useRef()
+    const {currentUser} = useSelector((state)=> state.currentUser)
+    const {friend} = useSelector((state)=> state.friend)
 
     // function to control emoji inputting
     const handleEnterEmoji = (emoji, event)=>{
@@ -57,8 +64,33 @@ const ChatInput = () => {
     }
 
     // here we run a function to execute submission of message to backend
-    const handleSubmit = ()=>{
-        alert(msg)
+    const handleSubmit = async()=>{
+        setsendmsg(msg)
+        
+        const config = {
+            headers:{
+                "Content-Type": "application/json",
+                token: `Bearer ${currentUser.token}`
+            }
+        }
+        try {
+            const datares = await axiosInstance.post('makechat', {message: msg, to: friend._id}, config)
+          
+        } catch (error) {
+            console.log(error)
+        }
+
+        // after handling send message to backend, we also emit message to the socket.io
+        socket.emit("send-msg", {
+            to: friend._id,
+            from: currentUser._id,
+            message: msg
+        })
+
+        let msgs = [...allmsg]
+        msgs.push({sender:currentUser._id, message: msg})
+        setallmsg(msgs)
+        setmsg('')
     }
   return (
     <Container>
