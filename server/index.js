@@ -11,7 +11,7 @@ const httpServer = createServer(app);
 const cors = require('cors')
 const io = new Server(httpServer, {
     cors:{
-        origin: "http://localhost:3000",
+        origin: "https://gmodechatz.netlify.app",
         credential: true
     }
 })
