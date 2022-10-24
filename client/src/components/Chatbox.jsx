@@ -77,7 +77,7 @@ const Container = styled.div`
       width: 100%;
       height: 100%;
       padding: 10px;
-      overflow-y: auto;
+      overflow-y: scroll;
 
       .users-own{
         display: flex; 
@@ -202,8 +202,7 @@ useEffect(()=>{
 
 // this is to scroll to the button of the page with arrival of new messages
 useEffect(()=>{
- 
-  
+ scrollRef.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
 },[allmsg])
   return (
     <Container friend={friend}>
@@ -226,7 +225,7 @@ useEffect(()=>{
         {
           allmsg.map((items)=>(
             <div key={items._id} className={currentUser._id === items.sender? "users-own":"receiver-message" }>
-              <Avatar sx={{ width: 24, height: 24 }}/>
+              <Avatar src={currentUser._id === items.sender? currentUser.profileUrl: friend.profileUrl} sx={{ width: 24, height: 24 }}/>
               <div className='msg'>
               <p>{items.message}</p>
               </div>
