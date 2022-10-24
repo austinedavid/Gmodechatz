@@ -201,9 +201,7 @@ useEffect(()=>{
 },[arrivalmsg])
 
 // this is to scroll to the button of the page with arrival of new messages
-useEffect(()=>{
- scrollRef.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
-},[allmsg])
+
   return (
     <Container friend={friend}>
       {
@@ -221,7 +219,7 @@ useEffect(()=>{
         </div>
         </div>
       </div>
-      <div ref={scrollRef} className='chat-messages'>
+      <div  className='chat-messages'>
         {
           allmsg.map((items)=>(
             <div key={items._id} className={currentUser._id === items.sender? "users-own":"receiver-message" }>
