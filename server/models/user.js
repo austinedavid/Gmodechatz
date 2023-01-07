@@ -19,6 +19,6 @@ const userSchema  = mongoose.Schema({
     profileUrl:{
         type: String,
     }
-},{timestamps: true, 'strictQuery':false})
+},{timestamps: true, strictQuery :false})
 
 module.exports = mongoose.model("chatzUsers", userSchema)

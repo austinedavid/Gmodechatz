@@ -14,6 +14,6 @@ const messageSchema = mongoose.Schema({
         type: String,
         required: true
     }
-}, {timestamps: true, 'strictQuery':false})
+}, {timestamps: true, strictQuery:false})
 
 module.exports = mongoose.model("CHATS", messageSchema)
