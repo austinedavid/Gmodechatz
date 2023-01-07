@@ -16,7 +16,7 @@ const io = new Server(httpServer, {
     }
 })
 
-
+mongoose.set('strictQuery', false)
 
 // we connect our mongoose to the data base
 const mongoConnect = async()=>{
