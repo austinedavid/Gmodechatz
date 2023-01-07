@@ -39,6 +39,9 @@ app.use(cors())
 app.use('/app', authRoute)
 app.use('/app', userRoute)
 app.use('/app', messageRoute)
+app.get('/get', (req, res)=>{
+    res.send(" checking for my end point")
+})
 
 // creating a listening 
 httpServer.listen(PORT, ()=>{
