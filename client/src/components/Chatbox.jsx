@@ -150,7 +150,7 @@ const Chatbox = ({shift, setshift}) => {
   const{currentUser} = useSelector((state)=> state.currentUser)
   const[sendmsg, setsendmsg] = useState("")
   const[allmsg, setallmsg] = useState([])
-  const host = "https://gmodechatz.herokuapp.com/"
+  const host = "https://gmodechatz.onrender.com/"
   const socket = io(host)
   const[arrivalmsg, setarrivalmsg] = useState(null)
  const fromUser = true
